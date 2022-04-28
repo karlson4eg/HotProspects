@@ -44,7 +44,7 @@ struct MeView: View {
                     }
             }
             .navigationTitle("Your code")
-            .onAppear(perform: updateQRCode)
+            .onAppear(perform: updateQRCode) //so it will not update every time the body is loaded
             .onChange(of: name) { _ in updateQRCode() }
             .onChange(of: emailAddress) { _ in updateQRCode() }
         }
