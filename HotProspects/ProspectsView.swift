@@ -26,19 +26,36 @@ struct ProspectsView: View {
                         Text(prospect.emailAddress)
                             .foregroundColor(.secondary)
                     }
-                }
-            }
-                .navigationTitle(title)
-                .toolbar {
-                    Button {
-                        isShowingScanner = true
-                    } label: {
-                        Label("Scan", systemImage: "qrcode.viewfinder")
+                    .swipeActions{
+                        if prospect.isContacted{
+                            Button {
+                                prospects.toggle(prospect)
+                            } label: {
+                                Label("Mark uncontacted", systemImage: "person.crop.circle.badge.xmark")
+                            }
+                            .tint(.blue)
+                        } else {
+                            Button {
+                                prospects.toggle(prospect)
+                            } label: {
+                                Label("Mark uncontacted", systemImage: "person.crop.circle.badge.xmark")
+                            }
+                            .tint(.green)
+                        }
                     }
                 }
-                .sheet(isPresented: $isShowingScanner) {
-                    CodeScannerView(codeTypes: [.qr], simulatedData: "Evi Stan\nevi@stan.com",completion: handleScan)
+            }
+            .navigationTitle(title)
+            .toolbar {
+                Button {
+                    isShowingScanner = true
+                } label: {
+                    Label("Scan", systemImage: "qrcode.viewfinder")
                 }
+            }
+            .sheet(isPresented: $isShowingScanner) {
+                CodeScannerView(codeTypes: [.qr], simulatedData: "Evi Stan\nevi@stan.com",completion: handleScan)
+            }
         }
     }
     
